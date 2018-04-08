@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页1</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        .hidePanel {
+            display: none;
+        }
+        .appDiv{
+            border-left:1px solid #dddddd;
+            border-right:1px solid #dddddd;
+            border-bottom:1px solid #dddddd;
+            background-color: #ffffff;
+            height:100%;
+            padding:5px;
+            margin-left:-10px;
+            margin-right:-10px;
+        }
+        .closeBtn{
+            margin-right:-10px;
+            margin-left:-5px;
+            margin-top:-10px;
+            display:none;
+        }
+        .footer{
+            margin:0;
+            margin-top:-40px;
+            height:40px;
+            background-color: #141C32;
+            color:#eeeeee;
+            padding-right:20px;
+            line-height:40px;
+        }
+        .assistInfo{
+            background-color: #ffffff;
+            height:100%;
+            padding:10px;
+            margin-left:-19px;
+            margin-right:-12px;
+            border-bottom:1px solid #dddddd;
+            border-right:1px solid #dddddd;
+        }
+    </style>
+</head>
+<body>
+<div id="main_app" class="container-fluid" style="height:100%;padding:0;">
+    <div class="row" style="margin:0;height:100%;padding:0;background-color: #eeeeee;">
+        <div id="main_menu" class="col-md-2 hidden-xs hidden-sm"
+             style="margin-top:0;background-color: #141C32;height:100%">
+            <div class="row" style="padding:20px;height:100%;">
+                <ul style="padding-left: 0;list-style: none;">
+                    <li><a href="#" @click="addTab('home')">Home</a></li>
+                    <li><a href="#" @click="addTab('profile')">Profile</a></li>
+                    <li><a href="#" @click="addTab('messages')">Messages</a></li>
+                    <li><a href="#" @click="addTab('other')">Other</a></li>
+                    <li><a href="#" @click="addTab('other1')">Other</a></li>
+                    <li><a href="#" @click="addTab('other2')">Other</a></li>
+                    <li><a href="#" @click="addTab('other3')">Other</a></li>
+                    <li><a href="#" @click="addTab('other4')">Other</a></li>
+                    <li><a href="#" @click="addTab('other5')">Other</a></li>
+                    <li><a href="#" @click="addTab('other6')">Other</a></li>
+                </ul>
+            </div>
+            <div class="row footer" align="left">
+                页脚信息
+            </div>
+        </div>
+        <div id="content" class="col-sm-12 col-md-10" style="margin-top:-0px;border:0 solid #dddddd;height:100%;">
+            <div class="row" style="padding-bottom:0;height:40px;">
+                <div id="content_app" class="col-sm-12" style="padding:5px 2px 0 7px;">
+                    <ul class="nav nav-tabs" style="margin-left:0;padding-right:20px;">
+                        <tab-label v-for="(item,index) in tabs" v-bind:index="index" :key="item.name"
+                                   v-bind:name="item.name" :class="activeTab(index)"
+                                   v-on:select-me="selectTab(index)" v-on:remove-tab="removeTab(index)"></tab-label>
+                    </ul>
+                </div>
+            </div>
+            <div class="row" style="height:100%;margin-top:-53px;padding-top:53px;margin-left:-14px;padding-bottom:0;">
+                <div class="col-sm-12 col-md-9" style="height:100%;background-color: #ffffff;">
+                    <app-div v-for="(item,index) in tabs" v-bind:name="item.name" :key="item.name"
+                             v-bind:txt="item.name"
+                             :class="showDiv(index)"></app-div>
+                </div>
+
+                <div class="col-md-3 hidden-xs hidden-sm" style="height:100%;">
+                    <div class="assistInfo">
+                        辅助信息及关联操作
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    Vue.component('tab-label', {
+        props: ['index', 'name'],
+        template: '<li style="padding-left:10px;"><a href="#"  @mouseover="showClose" @mouseleave="hideClose" @click="selectMe(index)" >{{name}}<button type="button" class="close closeBtn"  aria-label="Close"><span aria-hidden="true" @click="closeTab(index)" >&times;</span></button></a></li>',
+        methods: {
+            selectMe: function (index) {
+                //console.log('selectMe' + index);
+                this.$emit('select-me');
+            },
+            closeTab:function(index){
+                // console.log('closeTab' + index);
+                this.$emit('remove-tab');
+            },
+            showClose:function(ele){
+                if(ele.target.childNodes.item(1)) {
+                    ele.target.childNodes.item(1).style.display = "inline";
+                }
+            },
+            hideClose:function (ele) {
+                if (ele.target.childNodes.item(1)){
+                    ele.target.childNodes.item(1).style.display = "none";
+                }
+            }
+        }
+    })
+    Vue.component('app-div', {
+        props: ['name', 'txt'],
+        template: '<div v-bind:id="name" class="appDiv">{{txt}}</div>'
+    })
+    var app = new Vue({
+        el: '#main_app',
+        data: {
+            active: 'home',
+            tabs: [
+                {name: 'home', active: true}
+            ]
+        },
+        methods: {
+            selectTab: function (index) {//选择已存在的
+                console.log(this.tabs.length+'-------'+index);
+                if (this.tabs.length>0) {
+                    for (var i = 0; i < this.tabs.length; i++) {
+                        this.tabs[i].active = false;
+                    }
+                    if(this.tabs.length<=index+1){
+                        index=this.tabs.length-1;
+                    }
+                    var item = this.tabs[index];
+                    this.active = item.name;
+                    this.tabs[index].active = true;
+                }
+            },
+            addTab: function (name) {//激活已存在的或为存在的
+                for (var i = 0; i < this.tabs.length; i++) {
+                    if (this.tabs[i].name === name) {
+                        this.selectTab(i);
+                        return;
+                    }
+                }
+                this.tabs.push({name: name, active: false});
+                this.selectTab(this.tabs.length - 1);
+            },
+            removeTab:function(index){
+                if (this.tabs.length>index){
+                    this.tabs.splice(index,1);
+
+                    if (this.tabs && this.tabs.length>0){
+                        if(index==0){
+                            this.selectTab(0);
+                        }else {
+                            this.selectTab(index-1);
+                        }
+                    }
+                }
+            },
+            activeTab: function (index) { //激活标签样式
+                //console.log('activeTab--' + index);
+                return {active: this.tabs[index].active};
+            },
+            showDiv: function (index) { //显示业务页面
+                //console.log('showDiv----' + index);
+                if(this.tabs.length>0) {
+                    // console.log('eeee');
+                    return {hidePanel: this.tabs[index].active ? false : true};
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

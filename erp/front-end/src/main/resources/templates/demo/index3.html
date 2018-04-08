@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        @media (min-width: 992px) {
+            .col-md-0-5, .col-md-1-5, .col-md-2-5, .col-md-11-5 {
+                float: left;
+            }
+
+            .col-md-0-5 {
+                width: 4.66666667%;
+            }
+
+            .col-md-1-5 {
+                width: 12.5%;
+            }
+
+            .col-md-2-5 {
+                width: 17.66666667%;
+            }
+            .col-md-10-5{
+                width: 87.5%;
+            }
+            .col-md-11-5{
+                width: 95.33333333%;
+            }
+        }
+        @media (min-width: 1200px) {
+            .col-lg-0-5, .col-lg-1-5, .col-lg-2-5, .col-lg-11-5 {
+                float: left;
+            }
+
+            .col-lg-0-5 {
+                width: 4.16666667%;
+            }
+
+            .col-lg-1-5 {
+                width: 12.5%;
+            }
+
+            .col-lg-2-5 {
+                width: 20.83333333%;
+            }
+            .col-lg-10-5{
+                width: 87.5%;
+            }
+            .col-lg-11-5{
+                width: 95.83333333%;
+            }
+        }
+        .hidePanel {
+            display: none;
+        }
+        .appDiv{
+            border-left:1px solid #dddddd;
+            border-right:1px solid #dddddd;
+            border-bottom:1px solid #dddddd;
+            background-color: #ffffff;
+            height:100%;
+            padding:5px;
+            margin-left:-10px;
+            margin-right:-10px;
+        }
+        .closeBtn{
+            margin-right:-10px;
+            margin-left:-5px;
+            margin-top:-10px;
+            display:none;
+        }
+        .footer{
+            margin:0;
+            margin-top:-30px;
+            height:20px;
+            color:#999;
+            font-family: "Microsoft YaHei UI";
+            font-weight: bold;
+            padding-right:20px;
+            line-height:20px;
+
+        }
+        .assistInfo{
+            background-color: #ffffff;
+            height:100%;
+            padding:10px;
+            margin-left:-19px;
+            margin-right:-12px;
+            border-bottom:1px solid #dddddd;
+            border-right:1px solid #dddddd;
+        }
+        .menu ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            margin-left:-15px;
+            padding-left:15px;
+            width: 100%;
+            background-color: #001033;
+        }
+
+        .menu li a {
+            display: block;
+            color: #999999;
+            padding: 15px 2px 15px 15px;
+            text-decoration: none;
+            text-align: left;
+            border-left:3px solid transparent;
+        }
+
+        /* 鼠标移动到选项上修改背景颜色 */
+        .menu li a:hover {
+            background-color: #2e3b58;
+            color: #ffffff;
+            border-left:3px solid transparent;
+        }
+        .subMenu ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            background-color: #2e3b58;
+        }
+        .subMenu li a:hover {
+            background-color: #325EA1;
+            color: #ffffff;
+
+        }
+        .subMenu li a {
+            display: block;
+            color: #97a2bd;
+            padding: 15px 15px 15px 15px;
+            text-decoration: none;
+            text-align: left;
+            border-bottom:1px solid #414b62;
+
+        }
+    </style>
+</head>
+<body>
+<div id="main_app" class="container-fluid" style="height:100%;padding:10px 0 0 0;min-height:500px;">
+    <div class="row" role="top border" style="color:white;line-height:10px;margin:0;margin-top:-10px;background-color: #000D2A;">
+        &nbsp;
+    </div>
+    <div class="row" role="main content area" style="margin:0;height:100%;padding:0;background-color: #eeeeee;">
+        <div id="main_menu_area" class="col-xs-1 col-sm-1 col-md-1-5"
+             style="background-color: #001033;height:100%;margin:0;padding:0;">
+            <div class="row">
+                <div class="hidden-xs hidden-sm"lign="right" title="开关左边栏" style="color:white;z-index: 1000;cursor:pointer;width:20px;position: absolute;top:0;left:0;" @click="turnLeftArea">
+                    <span class="glyphicon glyphicon-option-vertical"  aria-hidden="true"></span>
+                </div>
+                <!--<div title="主菜单" style="color:white;z-index: 1001;cursor:pointer;width:50px;position: absolute;top:230px;left:3px;" align="center" >-->
+                    <!--<span class="glyphicon glyphicon-calendar"  aria-hidden="true"></span>-->
+                <!--</div>-->
+            </div>
+            <div class="row" style="height:100%;" role="left main area">
+                <div id="small_menu" class="col-xs-12 col-sm-12 hidden-md hidden-lg" role="small menu" align="center" style="padding-top:10px;height:100%;color:white;">
+                    <span class="glyphicon glyphicon-user"  aria-hidden="true" title="李小明" style="margin-top:20px;"></span></br>
+                    <span class="glyphicon glyphicon-user"  aria-hidden="true" title="人事部" style="margin-top:20px;"></span></br>
+                    <span class="glyphicon glyphicon-info-sign"  aria-hidden="true" title="5条消息" style="margin-top:20px;"></span></br>
+                    <span class="glyphicon glyphicon-cog"  aria-hidden="true" title="设置" style="margin-top:20px;"></span></br>
+                    <span class="glyphicon glyphicon-question-sign"  aria-hidden="true" title="帮助" style="margin-top:20px;"></span>
+
+                </div>
+                <div id="big_menu" class="col-md-12 hidden-sm hidden-xs" style="height:100%;">
+                    <div class="row" role="header Info area" style="height:100px;color:white;" align="left">
+                        <div role="header info" style="height:46px;padding-top:6px;padding-left:30px;background-color:#001033;margin-right:16px;">
+                            <span class="glyphicon glyphicon-user"  aria-hidden="true" title="李小明" style="padding:0 10px 5px 10px;margin-bottom:5px;"></span>李小明<br>
+                            <span class="glyphicon glyphicon-user"  aria-hidden="true" title="人事部" style="padding:0 10px 5px 10px;"></span>
+                            <span style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">xxxxx人事部</span>
+                        </div>
+                        <div role="header info" style="height:46px;padding-top:10px;padding-left:30px;background-color:#001033;margin-right:16px;" align="left">
+                            <span class="glyphicon glyphicon-info-sign"  aria-hidden="true" title="5条消息" style="padding-left:10px;padding-right:5px;"></span>5
+                            <span class="glyphicon glyphicon-cog"  aria-hidden="true" title="设置" style="padding-left:20px;padding-right:5px;"></span>
+                            <span class="glyphicon glyphicon-question-sign"  aria-hidden="true" title="帮助" style="padding-left:15px;"></span>
+                        </div>
+                        <div role="parting line" style="width:100%;height:5px;" align="center">
+                            <div role="parting line" style="width:80%;height:2px;border-top:1px solid rgba(255,255,255,0.1);">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding:0;height:100%;margin-top:-100px;padding-top:100px;" role="menu item">
+                        <div style="height:50px;line-height:50px;font-weight: bold;font-size:25px;color:white;" align="center">
+                            LO<span style="color:red;">GO</span>
+                        </div>
+                        <div role="parting line" style="width:100%;height:5px;" align="center">
+                            <div role="parting line" style="width:80%;height:2px;border-top:1px solid rgba(255,255,255,0.1);">
+                            </div>
+                        </div>
+                        <div class="menu" id="main_menu" style="margin-top:-60px;padding-top:60px;padding-left:10px;height:100%;min-height:300px;overflow-y:auto;">
+                            <ul>
+                                <li v-for="item in mainMenu">
+                                    <a  href="#"  @mouseover="mo" ><img :src="item.pic" width="20px" class="img-rounded" style="margin-right:10px;">{{item.name}}</a>
+                                </li>
+
+                            </ul>
+                            <div id="cur_menu" v-bind:style="{top:curMenuItem.top}" style="padding: 15px 2px 15px 12px;color:white;bacground-color:rgba(255,255,255,0.2);display:block;height:50px;position: absolute;top:-60px;left:15px;width:16px;z-index:1200;border-left:2px solid orangered;">
+
+                            </div>
+                        </div>
+                        <div id="sub_menu" class="subMenu" @mouseleave="ml"
+                             style="overflow-y:auto;border:0px solid #5b78bc;display:none;background-color:#2e3b58;position:absolute;top:152px;left:150px;width:180px;z-index: 1200;">
+
+                            <ul>
+                                <li v-for="item in menus">
+                                    <a  href="#" @click="addTab(item.name)"  >{{item.name}}</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row footer" @mouseleave="ml" align="right" role="footer">
+                        进销存系统&nbsp;V1.0
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content" class="col-xs-11 col-sm-11 col-md-10-5" style="margin-top:-0px;border:0 solid #dddddd;height:100%;">
+            <div class="row" style="padding-bottom:0;height:40px;">
+                <div id="content_app" class="col-sm-12" style="padding:5px 2px 0 7px;">
+                    <ul class="nav nav-tabs" style="margin-left:0;padding-right:20px;">
+                        <tab-label v-for="(item,index) in tabs" v-bind:index="index" :key="item.name"
+                                   v-bind:name="item.name" :class="activeTab(index)"
+                                   v-on:select-me="selectTab(index)" v-on:remove-tab="removeTab(index)"></tab-label>
+                    </ul>
+                </div>
+            </div>
+            <div class="row" style="height:100%;margin-top:-53px;padding-top:53px;margin-left:-14px;padding-bottom:0;">
+                <div align="right" title="隐藏辅助操作区" style="z-index: 1000;cursor:pointer;width:20px;position: absolute;top:57px;right:12px;" @click="turnAssistArea">
+                    <span class="glyphicon  glyphicon-resize-small"  aria-hidden="true"></span>
+                </div>
+                <div id="appDiv" class="col-xs-12 col-sm-12 col-md-9" style="height:100%;background-color: #ffffff;">
+                    <app-div v-for="(item,index) in tabs" v-bind:name="item.name" :key="item.name"
+                             v-bind:txt="item.url"
+                             :class="showDiv(index)"></app-div>
+                </div>
+                <div id="assistInfoArea" class="col-md-3 hidden-xs hidden-sm" style="height:100%;">
+                    <div  class="assistInfo">
+                        <div style="width:100%;display:block;" id="assistInfoAre1">
+                            <div style="width:100%;font-weight: bold">
+                                辅助操作
+                            </div>
+                            <div style="width:100%;padding-top:15px;">
+                                info
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript" src="/lib/jquery-3.3.1.min.js"></script>
+<script src="/lib/axios.min.js"></script>
+<script src="/lib/vue/vue.js"></script>
+<script>
+    Vue.component('tab-label', {
+        props: ['index', 'name'],
+        template: '<li style="padding-left:10px;"><a href="#"  @mouseover="showClose" @mouseleave="hideClose" @click="selectMe(index)" >{{name}}<button type="button" class="close closeBtn"  aria-label="Close"><span aria-hidden="true" @click="closeTab(index)" >&times;</span></button></a></li>',
+        methods: {
+            selectMe: function (index) {
+                //console.log('selectMe' + index);
+                this.$emit('select-me');
+            },
+            closeTab:function(index){
+                // console.log('closeTab' + index);
+                this.$emit('remove-tab');
+            },
+            showClose:function(ele){
+                if(ele.target.childNodes.item(1)) {
+                    ele.target.childNodes.item(1).style.display = "inline";
+                }
+            },
+            hideClose:function (ele) {
+                if (ele.target.childNodes.item(1)){
+                    ele.target.childNodes.item(1).style.display = "none";
+                }
+            }
+        }
+    })
+    Vue.component('app-div', {
+        props: ['name', 'txt'],
+        template: '<div v-bind:id="name" class="appDiv" ><iframe v-bind:src="txt" width="100%" height="100%" frameborder="0"></iframe></div>'
+    })
+    var app = new Vue({
+        el: '#main_app',
+        data: {
+            active: 'home',
+            tabs: [
+                {name: 'home', active: true,url:'welcome.html'}
+            ],
+            menus:[
+                {name:'home',url:'welcome.html'},
+                {name:'profile',url:'bootstrap.html'}
+            ],
+            mainMenu:[
+
+            ],
+            menuArea:true,
+            assistInfoArea:true,
+            selectMainMenuItem:null,
+            curMenuItem:{top:'-60px',txt:''}
+        },
+        mounted:function(){
+                axios({
+                    method: 'get',
+                    url: 'http://localhost:8080/menu'
+                }).then(function (resp) {
+                    for (var i = 0; i < resp.data.length; i++) {
+                        //console.log(resp.data[i]);
+                        app.$data.mainMenu.push(resp.data[i]);
+                        // console.log(resp.data[i].menu)
+                        // for(var j=0;j<resp.data[i].menu.length;j++){
+                        //     app.$data.menus.push(resp.data[i].menu[j]);
+                        // }
+                    }
+                }).catch(function (resp) {
+                    console.log('请求失败：' + resp.status + ',' + resp.statusText);
+                });
+
+        },
+        computed:{
+
+        },
+        methods: {
+            selectTab: function (index) {//选择已存在的
+                console.log(this.tabs.length+'-------'+index);
+                if (this.tabs.length>0) {
+                    for (var i = 0; i < this.tabs.length; i++) {
+                        this.tabs[i].active = false;
+                    }
+                    if(this.tabs.length<=index+1){
+                        index=this.tabs.length-1;
+                    }
+                    var item = this.tabs[index];
+                    this.active = item.name;
+                    this.tabs[index].active = true;
+                }
+            },
+            addTab: function (name) {//激活已存在的或为存在的
+                for (var i = 0; i < this.tabs.length; i++) {
+                    if (this.tabs[i].name === name) {
+                        this.selectTab(i);
+                        return;
+                    }
+                }
+                var _menu='';
+                for(var i=0;i<this.menus.length;i++){
+                    if (this.menus[i].name==name){
+                        _menu=this.menus[i].url;
+                        break;
+                    }
+                }
+                this.tabs.push({name: name, active: false,url:_menu});
+                this.selectTab(this.tabs.length - 1);
+            },
+            removeTab:function(index){
+                if (this.tabs.length>index){
+                    this.tabs.splice(index,1);
+
+                    if (this.tabs && this.tabs.length>0){
+                        if(index==0){
+                            this.selectTab(0);
+                        }else {
+                            this.selectTab(index-1);
+                        }
+                    }
+                }
+            },
+            activeTab: function (index) { //激活标签样式
+                //console.log('activeTab--' + index);
+                return {active: this.tabs[index].active};
+            },
+            showDiv: function (index) { //显示业务页面
+                //console.log('showDiv----' + index);
+                if(this.tabs.length>0) {
+                    // console.log('eeee');
+                    return {hidePanel: this.tabs[index].active ? false : true};
+                }
+            },
+            turnAssistArea:function() {
+                var assist=document.getElementById("assistInfoArea");
+                var appDiv=document.getElementById("appDiv");
+                if(this.assistInfoArea){
+                    assist.classList.add('hidden');
+                    appDiv.classList.remove('col-md-9');
+                    this.assistInfoArea =false;
+                }else{
+                    assist.classList.remove('hidden');
+                    appDiv.classList.add('col-md-9');
+                    this.assistInfoArea =true;
+                }
+            },
+            turnLeftArea:function() {
+                var content=document.getElementById("content");
+                var mainMenuArea =document.getElementById("main_menu_area");
+                var smallMenu=document.getElementById("small_menu");
+                var bigMenu=document.getElementById("big_menu");
+                if(this.menuArea){
+                    content.classList.remove('col-md-10');
+                    content.classList.add('col-md-11-5');
+                    mainMenuArea.classList.add('col-md-0-5');
+                    smallMenu.classList.remove('hidden-md');
+                    smallMenu.classList.remove('hidden-lg');
+                    bigMenu.classList.add('hidden');
+                    this.menuArea=false;
+                }else{
+                    content.classList.remove('col-md-11-5');
+                    content.classList.add('col-md-10');
+                    mainMenuArea.classList.remove('col-md-0-5');
+                    smallMenu.classList.add('hidden-md');
+                    smallMenu.classList.add('hidden-lg');
+                    bigMenu.classList.remove('hidden');
+                    this.menuArea=true;
+                }
+            },
+            mo:function(ele){
+
+                for(var i=0;i<this.mainMenu.length;i++) {
+
+                    if (ele.target.innerHTML.indexOf(this.mainMenu[i].name)>=0){
+                        this.menus=[];
+                        for(var j=0;j<this.mainMenu[i].menu.length;j++){
+                            this.menus.push({name:this.mainMenu[i].menu[j].name,url:this.mainMenu[i].menu[j].url});
+                        }
+                        break;
+                    }
+                }
+                var _subMenu=document.getElementById("sub_menu");
+                var _mainMenu=document.getElementById("main_menu");
+                var newHeight=_mainMenu.offsetHeight-55;
+                var newLeft=ele.target.offsetWidth+10;
+                //#001033
+                // this.selectMainMenuItem=ele.target;
+                // ele.target.style.backgroundColor='#2e3b58';
+                // ele.target.style.color='#ffffff';
+                // ele.target.style.borderRight='3px solid orangered';
+                this.curMenuItem.top=ele.target.offsetTop+'px';
+                this.curMenuItem.txt=ele.target.innerHTML;
+
+                _subMenu.style.left=newLeft+'px';
+                _subMenu.style.height=newHeight+'px';
+                _subMenu.style.display = "block";
+            },
+            ml:function () {
+                // this.selectMainMenuItem.style.backgroundColor='#001033';
+                // this.selectMainMenuItem.style.color='#999999';
+                // this.selectMainMenuItem.style.borderRight='0px solid orangered';
+                this.curMenuItemTop='-60px';
+                document.getElementById("sub_menu").style.display="none";
+            }
+        }
+    });
+</script>
+</body>
+</html>

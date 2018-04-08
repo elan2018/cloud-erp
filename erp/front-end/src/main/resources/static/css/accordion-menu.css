@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+ul {
+    list-style-type: none;
+}
+
+a {
+
+    text-decoration: none;
+}
+.accordion {
+    width: 100%;
+    max-width: 200px;
+    height:100%;
+    max-height:500px;
+    margin: 0 auto;
+    background: rgba(128,128,128,0.1);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    overflow-y: auto;
+}
+
+.accordion .link {
+    cursor: pointer;
+    display: block;
+    padding: 15px 15px 15px 15px;
+    color: #7b8190;
+    font-size: 14px;
+    border-bottom: 1px solid #1e2a43;
+    border-left:1px solid transparent;
+    position: relative;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+.accordion .link img{
+    color: #7b8190;
+}
+.accordion div.open{
+    color: #ffffff;
+    background-color: rgba(128,128,128,0.2);
+    border-left:3px solid #ff5a00;
+}
+.accordion .link:hover {
+    color: #ffffff;
+    background-color: rgba(128,128,128,0.2);
+    border-left:3px solid #ff5a00;
+}
+
+.accordion li:last-child .link {
+    border-bottom: 0;
+}
+.link:hover div.mark{
+    display:none;;
+}
+.accordion li i {
+    position: absolute;
+    top: 16px;
+    left: 12px;
+    font-size: 18px;
+    color: #595959;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+
+/**
+ * Submenu
+ -----------------------------*/
+.submenu {
+    display: none;
+    background: #0c1c41;
+    font-size: 14px;
+}
+
+.submenu li {
+    border-bottom: 1px solid #061027;
+}
+
+.submenu a {
+    display: block;
+    text-decoration: none;
+    color: #d9d9d9;
+    padding: 12px;
+    padding-left: 42px;
+    -webkit-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+}
+
+.submenu a:hover {
+    background: rgba(205,81,54,0.3);
+    color: #FFF;
+}
+
+.accordion::-webkit-scrollbar {
+      width: 8px;
+     }
+.accordion::-webkit-scrollbar-track {
+         background-color:#808080;
+         -webkit-border-radius: 2em;
+        -moz-border-radius: 2em;
+        border-radius:2em;
+       }
+.accordion::-webkit-scrollbar-thumb {
+          background-color:#05287a;
+          -webkit-border-radius: 2em;
+          -moz-border-radius: 2em;
+          border-radius:2em;
+         }

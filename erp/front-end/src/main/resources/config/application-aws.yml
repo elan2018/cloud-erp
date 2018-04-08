@@ -1,0 +1,43 @@
+server:
+    port: 80
+
+
+
+logging:
+    level:
+        com.elan.erp.frontend: info
+        com.elan.common: info
+
+spring:
+    redis:
+        database: 1
+        host: localhost
+        port: 6379
+        pool:
+            max-active: 20
+    thymeleaf:
+        cache: false
+        mode: LEGACYHTML5
+
+#注册中心
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+
+#路由网关
+service:
+    url: http://service-zuul:8767/
+
+#前置登录验证
+security:
+    login:
+        fail: /login
+    excludes: /lib,/css,/js,/images,*.ico
+
+
+ribbon:
+    ReadTimeout: 60000
+    ConnectTimeout: 60000
+    MaxAutoRetries: 0
+    MaxAutoRetriesNextServer: 1

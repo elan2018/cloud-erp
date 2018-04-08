@@ -1,0 +1,18 @@
+eureka:
+    instance:
+        prefer-ip-address: true
+        ip-address: 52.221.183.17
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+
+spring:
+    datasource:
+        url: jdbc:postgresql://localhost:5432/base-test?useUnicode=true&characterEncoding=utf-8
+        username: postgres
+        password: 111111
+        driver-class-name: org.postgresql.Driver
+
+logging:
+    level:
+        com.elan: info

@@ -1,0 +1,24 @@
+server:
+  port: 8767
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: erp-gateway-zuul
+
+#允许的直接访问的url（不进行过滤）
+permit:
+    service: /security
+    url: ${permit.service}/login
+    method:
+
+
+zuul:
+    routes:
+        api:
+            path: /base/**
+            serviceId: service-base-api
+        login:
+            path: ${permit.service}/**
+            serviceId: erp-gateway-zuul

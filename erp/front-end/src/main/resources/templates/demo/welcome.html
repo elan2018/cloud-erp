@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>welcome</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <style>
+        html, body {
+            padding:0;
+            margin:0;
+            height: 100%;
+        }
+        .open{
+            background-color: #D9C666;
+        }
+        .link:hover{
+            background-color: #D9C666;
+        }
+        .link:hover div{
+            color:red;
+            background-color: rgba(0,0,0,0);
+            display:none;
+        }
+
+    </style>
+</head>
+<body style="">
+    <div  style="height:600px;width:600px;background-color: #3c763d;border:2px solid yellow;">
+
+            <h1>Welcome!</h1>
+            <div >this is div!</div>
+    </div>
+<script>
+    function test(e){
+        console.log(e.target);
+        if (e.target.hasClass('open')==false){
+            e.target.addClass('open');
+        }
+    }
+</script>
+</body >
+</html>
