@@ -1,5 +1,9 @@
 package com.elan.cloud.erp.api.base.user;
 
+import com.elan.common.response.ResponseResult;
+import com.elan.common.springboot.starter.rocketmq.common.DefaultRocketMqProducer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,10 +13,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class UserController {
+
+    @Autowired
+    private DefaultRocketMqProducer defaultRocketMqProducer;
     @GetMapping("/menu")
-    public Object getUserMenu(@RequestParam("userId")String userId){
+    public Object getUserMenu(@RequestParam("userId")String userId) {
         List<Map<String,Object>> menuList = new ArrayList<>();
         for(int i=0;i<6;i++){
             Map<String,Object> subMenu =new HashMap();
@@ -27,7 +35,9 @@ public class UserController {
             }
             subMenu.put("menu",subMenuList);
             menuList.add(subMenu);
+
         }
-        return menuList;
+        ResponseResult result = new ResponseResult(menuList);
+        return result;
     }
 }

@@ -1,6 +1,6 @@
 package com.elan.cloud.erp.frontend.config;
 
-import com.elan.common.filter.LogFilter;
+import com.elan.common.filter.ReSubmitFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,23 +12,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-public class LogFilterConfig {
-    private Logger logger = LoggerFactory.getLogger(LogFilterConfig.class);
+public class ResubmitFilterConfig {
+    private Logger logger = LoggerFactory.getLogger(ResubmitFilterConfig.class);
 
-    @Value("${log-service.isOpen:true}")
+    @Value("${security.csrf.isOpen:true}")
     private String isOpen;
 
     //排除不拦截的URL
-    @Value("${log-service.excludes:/css,/js,/lib,/images,*.ico}")
+    @Value("${security.csrf.excludes:/css,/js,/lib,/images,*.ico}")
     private String excludes;
 
 
     @Bean
-    public FilterRegistrationBean logFilterRegistrationBean() {
-        logger.info("LogFilterConfig is running -----------------------------");
+    public FilterRegistrationBean resubmitFilterRegistrationBean() {
+        logger.info("ResubmitFilter is running -----------------------------");
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
-        filterRegistrationBean.setFilter(new LogFilter());
-        filterRegistrationBean.setOrder(1);
+        filterRegistrationBean.setFilter(new ReSubmitFilter());
+        filterRegistrationBean.setOrder(4);
         filterRegistrationBean.setEnabled(true);
         filterRegistrationBean.addUrlPatterns("/*");
         Map<String, String> initParameters = new HashMap();

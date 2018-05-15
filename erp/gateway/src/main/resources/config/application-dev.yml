@@ -1,3 +1,20 @@
+server:
+    port: 8767
+    tomcat:
+        #remote-ip-header: x-your-remote-ip-header
+        protocol-header: X-Forwarded-For
+        accesslog:
+            buffered: true # Buffer output such that it is only flushed periodically.
+            directory: logs # Directory in which log files are created. Can be relative to the tomcat base dir or absolute.
+            enabled: true # Enable access log.
+            file-date-format: .yyyy-MM-dd # Date format to place in log file name.
+            pattern: "%t [%I] [%{x-access-token}s] %{X-Forwarded-For}i %a %r %b %s (%D ms) " # Format pattern for access logs.
+            server.tomcat.accesslog.prefix: access_log # Log file name prefix.
+            server.tomcat.accesslog.rename-on-rotate: true # Defer inclusion of the date stamp in the file name until rotate time.
+            server.tomcat.accesslog.request-attributes-enabled: true # Set request attributes for IP address, Hostname, protocol and port used for the request.
+            server.tomcat.accesslog.rotate: true # Enable access log rotation.
+            server.tomcat.accesslog.suffix: .log # Log file name suffix.
+
 eureka:
     instance:
         prefer-ip-address: true

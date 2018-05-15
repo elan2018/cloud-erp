@@ -8,10 +8,9 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginFilter implements Filter {
 
@@ -67,7 +66,8 @@ public class LoginFilter implements Filter {
                 resp.sendRedirect(this.login);
                 return;
         }
-       filterChain.doFilter(req,resp);
+        req.getSession().setAttribute("csrf_token", access_token);
+        filterChain.doFilter(req,resp);
     }
 
     @Override

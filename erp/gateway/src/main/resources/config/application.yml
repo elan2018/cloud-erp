@@ -1,11 +1,8 @@
-server:
-  port: 8767
-
 spring:
-  profiles:
-    active: dev
-  application:
-    name: erp-gateway-zuul
+    profiles:
+        active: dev
+    application:
+        name: erp-gateway-zuul
 
 #允许的直接访问的url（不进行过滤）
 permit:

@@ -14,21 +14,6 @@ html, body {
 div .row{
     height:100%;
 }
-::-webkit-scrollbar {
-    width: 8px;
-}
-::-webkit-scrollbar-track {
-    background-color:#eeeeee;
-    -webkit-border-radius: 2em;
-    -moz-border-radius: 2em;
-    border-radius:2em;
-}
-::-webkit-scrollbar-thumb {
-    background-color:#999999;
-    -webkit-border-radius: 2em;
-    -moz-border-radius: 2em;
-    border-radius:2em;
-}
 .app {
     background-color: #ffffff;
     height: 100%;

@@ -2,10 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.css"/>
-    <link rel="stylesheet" href="/css/accordion-menu.css"/>
-    <link rel="stylesheet" href="/css/main.css"/>
-    <link rel="stylesheet" href="/css/base.css"/>
+    <script type="text/javascript" src="/js/commom_css.js"></script>
+    <script type="text/javascript" src="/js/commom_js.js"></script>
     <title>main</title>
 
 </head>
@@ -97,12 +95,8 @@
          v-bind:style="{height:facade.footerHeight+'px',backgroundColor: facade.footerBackColor}">footer
     </div>
 </div>
-
-<script type="text/javascript" src="/lib/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="/lib/axios.min.js"></script>
-<script type="text/javascript" src="/lib/vue/vue.js"></script>
-<script type="text/javascript" src="/js/accordion-menu.js"></script>
 <script>
+
     Vue.component('tab-label', {
         props: ['index', 'name'],
         template: '<li style="padding-left:10px;"><a href="#"  @mouseover="showClose" @mouseleave="hideClose" @click="selectMe(index)" >{{name}}<button type="button" class="close closeBtn"  aria-label="Close"><span aria-hidden="true" @click="closeTab(index)" >&times;</span></button></a></li>',
@@ -130,7 +124,7 @@
     Vue.component('work-div', {
         props: ['name', 'txt'],
         template: '<div  v-bind:id="name"  style="width:100%;height:100%;"  ><iframe :src="txt" width="100%" height="100%"   scrolling="yes" style="border: 0;"></iframe></div>'
-    })
+    });
     var app = new Vue({
         el: '#main_app',
         data: {
@@ -158,17 +152,24 @@
             workInfoArea: false
         },
         mounted: function () {
-            axios({
-                method: 'get',
-                url: '/user/menu?userId=1'
-            }).then(function (resp) {
-                console.log(resp.data.data[0]);
-                for (var i = 0; i < resp.data.data.length; i++) {
-                    app.$data.mainMenu.push(resp.data.data[i]);
-                }
-            }).catch(function (resp) {
-                console.log('请求失败：' + resp.status + ',' + resp.statusText);
-            });
+            console.log('mounted...........');
+            $.get({url:'/user/menu?userId=1',method:'get',success:function(resp){
+                    console.log(resp.data.data[0]);
+                    for (var i = 0; i < resp.data.data.length; i++) {
+                       app.$data.mainMenu.push(resp.data.data[i]);
+                    }
+                }});
+            // axios({
+            //     method: 'get',
+            //     url: '/user/menu?userId=1'
+            // }).then(function (resp) {
+            //     console.log(resp.data.data[0]);
+            //     for (var i = 0; i < resp.data.data.length; i++) {
+            //         app.$data.mainMenu.push(resp.data.data[i]);
+            //     }
+            // }).catch(function (resp) {
+            //     console.log('请求失败：' + resp.status + ',' + resp.statusText);
+            // });
         },
         computed: {
             cPaddingHeight: function () {

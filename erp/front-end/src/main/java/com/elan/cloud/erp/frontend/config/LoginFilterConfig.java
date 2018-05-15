@@ -15,19 +15,20 @@ import java.util.Map;
 public class LoginFilterConfig {
     private Logger logger = LoggerFactory.getLogger(LoginFilterConfig.class);
 
+    //跳转到登录页面
     @Value("${security.login.fail:/login}")
     private String login;
 
-    @Value("${security.excludes:/css,/js,/lib,/images,*.ico}")
+    //排除不拦截的URL
+    @Value("${security.login.excludes:/css,/js,/lib,/images,*.ico}")
     private String excludes;
 
-
     @Bean
-    public FilterRegistrationBean csrfFilterRegistrationBean() {
+    public FilterRegistrationBean loginFilterRegistrationBean() {
         logger.info("LoginFilter is running -----------------------------");
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
         filterRegistrationBean.setFilter(new LoginFilter());
-        filterRegistrationBean.setOrder(3);
+        filterRegistrationBean.setOrder(2);
         filterRegistrationBean.setEnabled(true);
         filterRegistrationBean.addUrlPatterns("/*");
         Map<String, String> initParameters = new HashMap();
@@ -36,4 +37,6 @@ public class LoginFilterConfig {
         filterRegistrationBean.setInitParameters(initParameters);
         return filterRegistrationBean;
     }
+
+
 }

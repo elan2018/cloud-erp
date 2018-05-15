@@ -1,6 +1,19 @@
 server:
     port: 8080
-
+    tomcat:
+        #remote-ip-header: x-your-remote-ip-header
+        protocol-header: X-Forwarded-For
+        accesslog:
+            buffered: true # Buffer output such that it is only flushed periodically.
+            directory: logs # Directory in which log files are created. Can be relative to the tomcat base dir or absolute.
+            enabled: true # Enable access log.
+            file-date-format: .yyyy-MM-dd # Date format to place in log file name.
+            pattern: "%t [%I] [%{x-access-token}s] %{X-Forwarded-For}i %a %r %b %s (%D ms) " # Format pattern for access logs.
+            server.tomcat.accesslog.prefix: access_log # Log file name prefix.
+            server.tomcat.accesslog.rename-on-rotate: true # Defer inclusion of the date stamp in the file name until rotate time.
+            server.tomcat.accesslog.request-attributes-enabled: true # Set request attributes for IP address, Hostname, protocol and port used for the request.
+            server.tomcat.accesslog.rotate: true # Enable access log rotation.
+            server.tomcat.accesslog.suffix: .log # Log file name suffix.
 
 logging:
     level:
@@ -10,7 +23,7 @@ logging:
 spring:
     redis:
         database: 1
-        host: localhost
+        host: 192.168.7.150
         port: 6379
         pool:
             max-active: 20
@@ -29,11 +42,16 @@ eureka:
 service:
     url: http://erp-gateway-zuul:8767/
 
-#前置登录验证
+#前置安全验证
+#LoginFilter、CrsfFilter
 security:
     login:
         fail: /login
-    excludes: /lib,/css,/js,/images,*.ico,*.png,*.jpg,*.gif,*.ttf
+        excludes: /test,/lib,/css,/js,/images,*.ico,*.png,*.jpg,*.gif,*.ttf,*.map
+    csrf:
+        method: post
+        isOpen: true
+        excludes: /login,/test,/lib,/css,/js,/images,*.ico,*.png,*.jpg,*.gif,*.ttf,*.map
 
 
 ribbon:
@@ -41,3 +59,13 @@ ribbon:
     ConnectTimeout: 60000
     MaxAutoRetries: 0
     MaxAutoRetriesNextServer: 1
+
+#RouterController(common)
+page:
+    router:
+        dir: /demo #静态html
+
+#LogFilter
+log-service:
+    isOpen: true
+    excludes:  /test,/lib,/css,/js,/images,*.ico,*.png,*.jpg,*.gif,*.ttf,*.map

@@ -11,16 +11,17 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @EnableDiscoveryClient
 @ComponentScan(basePackages = {"com.elan.common.controller", "com.elan.cloud.erp"}
-							//	,excludeFilters={@ComponentScan.Filter(type=  FilterType.ASSIGNABLE_TYPE,value=com.elan.controller.RouterController.class)}
-								)
+        //	,excludeFilters={@ComponentScan.Filter(type=  FilterType.ASSIGNABLE_TYPE,value=com.elan.controller.RouterController.class)}
+)
 public class FrontEndApplication {
 
-	@Bean
-	@LoadBalanced
-	RestTemplate restTemplate(){
-		return new RestTemplate();
-	}
-	public static void main(String[] args) {
-		SpringApplication.run(FrontEndApplication.class, args);
-	}
+    @Bean
+    @LoadBalanced
+    RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(FrontEndApplication.class, args);
+    }
 }

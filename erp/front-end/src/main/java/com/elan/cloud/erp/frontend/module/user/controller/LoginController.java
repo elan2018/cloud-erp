@@ -2,6 +2,7 @@ package com.elan.cloud.erp.frontend.module.user.controller;
 
 import com.elan.cloud.erp.frontend.module.user.service.LoginService;
 import com.elan.common.response.ResponseResult;
+import com.elan.common.utils.GenerationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,14 +28,16 @@ public class LoginController {
                                             @RequestParam("password")String password){
         ResponseResult responseResult = loginService.login(name,password);
         if (responseResult.getCode()==0) {
-            request.getSession().setAttribute("x-access-token", 100 + index++);
+            request.getSession().setAttribute("x-access-token", GenerationUtil.uuid());
             return "main";
         }
+
         model.addAttribute("error",responseResult.getMessage());
         return "login";
     }
     @RequestMapping(value={"/"})
-    public String index(){
+    public String index(HttpServletRequest request){
+
         return "main";
     }
 
@@ -42,7 +45,8 @@ public class LoginController {
     @ResponseBody
     public Object getUserMenu(@RequestParam("userId")String userId){
 
-        return loginService.getMenu(userId);
+        ResponseResult reslut=  loginService.getMenu(userId);
+        return reslut;
     }
 
     @GetMapping("/test")

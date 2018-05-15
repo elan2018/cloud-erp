@@ -100,17 +100,18 @@ a {
 }
 
 .accordion::-webkit-scrollbar {
-      width: 8px;
-     }
+    width: 7px;
+    height:7px;
+}
 .accordion::-webkit-scrollbar-track {
-         background-color:#808080;
-         -webkit-border-radius: 2em;
-        -moz-border-radius: 2em;
-        border-radius:2em;
-       }
+    background-color:#808080;
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    border-radius:2em;
+}
 .accordion::-webkit-scrollbar-thumb {
-          background-color:#05287a;
-          -webkit-border-radius: 2em;
-          -moz-border-radius: 2em;
-          border-radius:2em;
-         }
+    background-color:#05287a;
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    border-radius:2em;
+}
