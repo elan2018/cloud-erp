@@ -4,7 +4,7 @@ import com.elan.cloud.erp.gateway.permission.config.DefaultSecurityManager;
 import com.elan.cloud.erp.gateway.permission.utils.AntPathRequestMatcher;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import org.jsoup.helper.StringUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,7 +95,10 @@ public class AuthRoleFilter extends ZuulFilter {
             }
         }
         String access_token = ctx.getRequest().getHeader("x-access-token");
-        if (StringUtil.isBlank(access_token)){//判断登录
+        if(StringUtils.isEmpty(access_token)){
+            access_token = ctx.getRequest().getParameter("access_token");
+        }
+        if (StringUtils.isEmpty(access_token)){//判断登录
             log.warn("Token is empty！");
             ctx.set("isSuccess",false);
             ctx.setSendZuulResponse(false);
@@ -108,6 +111,7 @@ public class AuthRoleFilter extends ZuulFilter {
             return null;
         }
         String userId ="1";
+        //用户权限验证
        if (defaultSecurityManager.decide(request,userId)==false){
            log.warn("Access Denied! ");
            ctx.set("isSuccess",false);

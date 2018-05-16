@@ -1,6 +1,7 @@
 package com.elan.cloud.erp.frontend.filter;
 
 
+import com.elan.common.utils.GenerationUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,7 +67,10 @@ public class LoginFilter implements Filter {
                 resp.sendRedirect(this.login);
                 return;
         }
-        req.getSession().setAttribute("csrf_token", access_token);
+        Object csrf_token =req.getSession().getAttribute("csrf_token");
+        if(csrf_token==null) {
+            req.getSession().setAttribute("csrf_token", GenerationUtil.uuid());
+        }
         filterChain.doFilter(req,resp);
     }
 

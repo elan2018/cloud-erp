@@ -53,7 +53,6 @@ security:
         isOpen: true
         excludes: /login,/test,/lib,/css,/js,/images,*.ico,*.png,*.jpg,*.gif,*.ttf,*.map
 
-
 ribbon:
     ReadTimeout: 60000
     ConnectTimeout: 60000
