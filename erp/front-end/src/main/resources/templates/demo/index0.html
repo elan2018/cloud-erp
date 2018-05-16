@@ -11,79 +11,41 @@
     </style>
 </head>
 <body>
-<p th:text="${session.csrf_token}">token</p>
-<div id="app" >
-    <div id="myChart" style="width:300px;height:300px;">
+
+<div id="app" style="padding-left:20px;">
+    <div id="myChart" style="width:500px;height:400px;">
 
     </div>
 
-    <button @click="test">变化</button>
+    <button @click="test">变化图形</button>
+    <button @click="init_post()">初始POST请求</button>
+    <button @click="add">post请求</button>&nbsp;结果：{{info}}
 </div>
-<button onclick="init_post()">init</button>
-<button onclick="post()">add</button>
+
 <script src="/lib/jquery-3.3.1.min.js"></script>
+<script src="/lib/dolphin/http-template/js/http-template.js"></script>
 <script src="/lib/vue/vue.js"></script>
+
 <!-- ECharts单文件引入 -->
 <script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
 
 <script th:inline="javascript">
-    var id=0;
-    var resubmit_key;
-    var resubmit_token;
-    var csrf_token = /*[[${session.csrf_token}]]*/;
-    var param ={
-        id:1,
-        csrf_token: csrf_token,
-        path:'/add'
-    };
-    function init_post(){
-        var pa =param;
-        $.get({url:'/init_post',async:false,data:pa,success:function (data,textStatus,request) {
-            console.log(data);
-            if(data.code==0) {
-                    var key = request.getResponseHeader('resubmit_key');
-                    var resubmit_token = request.getResponseHeader(key);
-                    console.log(key, resubmit_token);
-                    var p = "pa." + key + "='" + resubmit_token + "'";
-                    eval(p);
-                    p="pa.resubmit_key='"+key+"'";
-                    eval(p);
-                }
-        }});
 
-
-    }
-    function post(){
-
-        $.post({url:'/add',
-            data:param,
-            success:function (data,textStatus,request) {
-                console.log(data);
-                if(data.code==0) {
-                    var key = request.getResponseHeader('resubmit_key');
-                    var resubmit_token = request.getResponseHeader(key);
-                    console.log(key, resubmit_token);
-                    id++;
-                    var p = "param." + key + "='" + resubmit_token + "'";
-
-                    console.log(p);
-                    eval(p);
-                    p = "param.resubmit_key='" + key + "'";
-                    eval(p);
-                }
-            }});
-    }
-    var app =new Vue({
+    Vue.use(DOLPHIN_HTTP_TEMPLATE);
+    let app =new Vue({
         el: "#app",
         data:{
             testChart:null,
-            msg:'VUE'
-        },
+            msg:'VUE',
+            csrfToken: /*[[${session.csrf_token}]]*/,
+            add_param:{},
+            info:''
+    },
         mounted:function(){
             // 基于准备好的dom，初始化echarts图表
             this.testChart = echarts.init(document.getElementById('myChart'));
 
-            var option = {
+            let option = {
                 tooltip: {
                     show: true
                 },
@@ -114,16 +76,34 @@
             this.testChart.setOption(option);
         },
         methods:{
+            init_post:function(){
+                this.add_param =this.$postInit('/add',this.csrfToken);
+            },
+            add:function(){
+                let _self = this;
+                if(_self.add_param.id==undefined){
+                    _self.add_param.id=1;
+                }
+                $.post({url:'/add',data:_self.add_param,
+                    success:function (data,textStatus,request) {
+                        console.log(data);
+                        if(data.code==0) {
+                            _self.$getHeaderTokenInfo(request,_self.add_param);
+                            _self.info=data.data;
+                            _self.add_param.id=data.data;
+                        }
+                    }});
+            },
             test:function(){
-                var k = this.testChart.getSeries();
+                let k = this.testChart.getSeries();
                 console.log(k[0].data);
-                var nn = [
+                let nn = [
                     {
                         "name":"销售金额",
                         "type":"bar",
                         "data":[15, 30, 60, 30, 50, 10]
                     }
-                ]
+                ];
                 this.testChart.setSeries(nn);
             }
         }
