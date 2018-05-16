@@ -40,7 +40,7 @@ public class DemoController {
 
     @PostMapping("/add")
     public ResponseResult add(@RequestParam("id")int id){
-        return new ResponseResult(String.valueOf(id++));
+        return new ResponseResult(String.valueOf(++id));
     }
 
 }

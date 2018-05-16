@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginController {
 
     @Autowired
-    LoginService loginService;
+    private LoginService loginService;
 
     private  int index=1;
     @GetMapping("/login")
