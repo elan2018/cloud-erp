@@ -1,7 +1,9 @@
 package com.elan.cloud.erp.frontend.filter;
 
 
+import com.elan.common.response.ResponseResultUtils;
 import com.elan.common.utils.GenerationUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +66,20 @@ public class LoginFilter implements Filter {
         Object access_token = req.getSession().getAttribute("x-access-token");
         if (!url.startsWith(this.login) && (access_token == null || access_token.equals(""))) {//登录过期或未登录
                 logger.warn("登录过期或未登录，请求路径："+url);
-                resp.sendRedirect(this.login);
+                String xmlHttpRequest = req.getHeader("X-Requested-With");
+                if (StringUtils.isNotEmpty(xmlHttpRequest) && xmlHttpRequest.equalsIgnoreCase("XMLHttpRequest")){
+                    resp.setContentType("application/json;charset=utf-8");
+                    resp.setCharacterEncoding("utf-8");
+                    ObjectMapper mapper = new ObjectMapper();
+                    resp.getWriter().print(mapper.writeValueAsString(ResponseResultUtils.error(401,"请重新登录！",this.login)));
+
+                }else {
+                    resp.setContentType("text/html;charset=utf-8");
+                    resp.setCharacterEncoding("utf-8");
+                    StringBuffer html = new StringBuffer();
+                    html.append("<script>window.parent.location.href='"+this.login+"'</script>");
+                    resp.getWriter().print(html.toString());
+                }
                 return;
         }
         Object csrf_token =req.getSession().getAttribute("csrf_token");
