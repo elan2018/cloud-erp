@@ -25,6 +25,7 @@ eureka:
 logging:
     level:
         com.elan: debug
+    config: classpath:config/logback-dev.xml
 
 spring:
     datasource:
@@ -32,6 +33,3 @@ spring:
         username: postgres
         password: 111111
         driver-class-name: org.postgresql.Driver
-    rocketmq:
-        nameServer: 192.168.7.150:29876
-        producerGroupName: producer-group

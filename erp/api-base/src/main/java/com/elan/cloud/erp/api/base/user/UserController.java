@@ -1,7 +1,6 @@
 package com.elan.cloud.erp.api.base.user;
 
 import com.elan.common.response.ResponseResult;
-import com.elan.common.springboot.starter.rocketmq.common.DefaultRocketMqProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,26 +17,49 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
-    private DefaultRocketMqProducer defaultRocketMqProducer;
+    UserService userService;
+
     @GetMapping("/menu")
-    public Object getUserMenu(@RequestParam("userId")String userId) {
-        List<Map<String,Object>> menuList = new ArrayList<>();
-        for(int i=0;i<6;i++){
-            Map<String,Object> subMenu =new HashMap();
-            subMenu.put("name","系统管理"+i);
-            subMenu.put("pic","/images/icon"+i+".png");
-            List<Map<String,Object>> subMenuList = new ArrayList<>();
-            for(int j=0;j<10;j++) {
-                Map<String, Object> item = new HashMap<>();
-                item.put("name", "菜单子功能" + i+j);
-                item.put("url", "/html/index"+j);
-                subMenuList.add(item);
+    public Object getUserMenu(@RequestParam("userId")int userId) {
+        List<Map<String,Object>> menuList = userService.getUserMenu(userId);
+        List<Map<String,Object>> mainMenu = new ArrayList<>();
+        Map<String,Object> mainMenuItem =new HashMap();
+        Map<String,Object> subMenuItem =new HashMap();
+        int pid=0;
+        boolean init=false;
+        List<Map<String,Object>> subMenuList = new ArrayList<>();
+        for (Map<String, Object> menu : menuList) {
+            int curPid = (int)menu.get("pid");
+            int id = (int)menu.get("id");
+            if (curPid==0) {
+                if(init) {
+                    mainMenuItem.put("menu", subMenuList);
+                    mainMenu.add(mainMenuItem);
+                }
+                init=true;
+                mainMenuItem =new HashMap();
+                mainMenuItem.put("url",menu.get("url"));
+                mainMenuItem.put("name", menu.get("name"));
+                mainMenuItem.put("pic",menu.get("pic"));
+                subMenuList = new ArrayList<>();
+                pid=id;
+                continue;
             }
-            subMenu.put("menu",subMenuList);
-            menuList.add(subMenu);
+            if (curPid==pid) {
+                subMenuItem =new HashMap();
+                subMenuItem.put("url",menu.get("url"));
+                subMenuItem.put("name", menu.get("name"));
+                subMenuItem.put("pic",menu.get("pic"));
+                subMenuList.add(subMenuItem);
+            }
 
         }
-        ResponseResult result = new ResponseResult(menuList);
-        return result;
+        if(init) {
+            mainMenuItem.put("menu", subMenuList);
+            mainMenu.add(mainMenuItem);
+        }
+        return new ResponseResult(mainMenu);
     }
+
+
 }
