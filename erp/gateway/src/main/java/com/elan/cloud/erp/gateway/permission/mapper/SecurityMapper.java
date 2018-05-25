@@ -8,9 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Mapper
 @Component
-public interface SysUserMapper {
+public interface SecurityMapper {
 
     @Select("select id,username,password from sys_user where username=#{username}")
     User findByUsername(@Param("username") String username);
-
 }

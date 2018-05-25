@@ -25,6 +25,7 @@ eureka:
 logging:
     level:
         com.elan: debug
+    config: classpath:config/logback-dev.xml
 
 
 spring:
@@ -33,3 +34,22 @@ spring:
         username: postgres
         password: 111111
         driver-class-name: org.postgresql.Driver
+    redis:
+        database: 2
+        host: localhost
+        port: 6379
+        pool:
+            max-active: 10
+
+
+zuul:
+    retryable: false  # 取消重试机制
+    add-host-header: true # host-header
+
+ribbon:
+    ReadTimeout: 150000  # 请求处理超时时间
+    ConnectTimeout: 100000 # 请求连接超时时间
+
+# 断路器超时时间
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 900000
+

@@ -32,7 +32,7 @@ public class ZuulErrorFilter extends ZuulFilter{
     @Override
     public boolean shouldFilter() {
         RequestContext ctx = RequestContext.getCurrentContext();
-        if (ctx.get("isSuccess")!=null && (Boolean)ctx.get("isSuccess")==false) return false;
+        if (ctx.get("isSuccess")!=null && !(Boolean)ctx.get("isSuccess")) return false;
         return true;
     }
 
@@ -43,11 +43,11 @@ public class ZuulErrorFilter extends ZuulFilter{
         HttpServletRequest request = ctx.getRequest();
         ctx.addZuulResponseHeader("Content-type","application/json;charset=utf-8");
         ctx.addZuulResponseHeader("Content-Language","");
-        log.info(String.format("%s >>> %s", request.getMethod(), request.getRequestURL().toString()));
+        log.error(String.format("%s >>> %s", request.getMethod(), request.getRequestURL().toString()));
         InputStream stream =ctx.getResponseDataStream();
         try {
             String body = StreamUtils.copyToString(stream, Charset.forName("UTF-8"));
-            log.warn(String.format("error response body:-----%s",body));
+            log.error(String.format("error response body:-----%s",body));
             ctx.setResponseBody(encode(body));
         } catch (IOException e) {
             e.printStackTrace();
@@ -57,15 +57,19 @@ public class ZuulErrorFilter extends ZuulFilter{
 
 
     private String encode(String result){
+        RequestContext ctx = RequestContext.getCurrentContext();
         ResponseResult responseResult =null;
-        if(result.indexOf("{")==0){
-            JSONObject object = JSON.parseObject(result);
-            responseResult= ResponseResultUtils.error(1,"系统异常",object);
-        }else if (result.indexOf("[")==0){
-            JSONArray array = JSON.parseArray(result);
-            responseResult= ResponseResultUtils.error(1,"系统异常",array);
-        }else{
-            responseResult= ResponseResultUtils.error(1,"系统异常",result);
+        responseResult =JSON.parseObject(result,ResponseResult.class);
+        if(responseResult.getCode()==-1) {
+            if (result.indexOf("{") == 0) {
+                JSONObject object = JSON.parseObject(result);
+                responseResult = ResponseResultUtils.error(ctx.getResponseStatusCode(), "系统异常", object);
+            } else if (result.indexOf("[") == 0) {
+                JSONArray array = JSON.parseArray(result);
+                responseResult = ResponseResultUtils.error(ctx.getResponseStatusCode(), "系统异常", array);
+            } else {
+                responseResult = ResponseResultUtils.error(ctx.getResponseStatusCode(), "系统异常", result);
+            }
         }
         return JSON.toJSONString(responseResult);
     }

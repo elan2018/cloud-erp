@@ -19,3 +19,6 @@ zuul:
         login:
             path: ${permit.service}/**
             serviceId: erp-gateway-zuul
+
+
+

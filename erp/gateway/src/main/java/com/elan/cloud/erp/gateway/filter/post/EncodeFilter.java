@@ -6,7 +6,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.elan.common.response.ResponseResult;
 import com.elan.common.response.ResponseResultUtils;
 import com.netflix.zuul.ZuulFilter;
-
 import com.netflix.zuul.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,9 +53,10 @@ public class EncodeFilter extends ZuulFilter {
         try {
             String body = StreamUtils.copyToString(stream, Charset.forName("UTF-8"));
             log.debug(String.format("response body:-----%s",body));
-            log .debug("response status:"+ctx.getResponseStatusCode());
+            log.debug("response status:"+ctx.getResponseStatusCode());
             ctx.setResponseBody(encode(body));
         } catch (IOException e) {
+
             e.printStackTrace();
         }
         return "ok";
@@ -64,20 +64,36 @@ public class EncodeFilter extends ZuulFilter {
 
     private String encode(String result){
         RequestContext ctx = RequestContext.getCurrentContext();
-        if (ctx.getResponseStatusCode()!=200){
+        if (ctx.getResponseStatusCode()!=200){//异常时，直接返回（error filter已经处理）
             ctx.setResponseStatusCode(200);
             return result;
         }
         ResponseResult responseResult =null;
-        if(result.indexOf("{")==0){
-            JSONObject object = JSON.parseObject(result);
-            responseResult= ResponseResultUtils.success(object);
-        }else if (result.indexOf("[")==0){
-            JSONArray array = JSON.parseArray(result);
-            responseResult= ResponseResultUtils.success(array);
-        }else{
-            responseResult= ResponseResultUtils.success(result);
+        if(result==null) result="";
+        try{
+            responseResult = JSON.parseObject(result,ResponseResult.class);
+        }catch(Exception e){
+            log.error("URL="+ctx.getRequest().getRequestURI()+"的返回结果转换JSON对象异常！,exception："+e.getMessage());
+        }
+        if(responseResult==null || responseResult.getCode()==-1) {
+            if (result.indexOf("{") == 0) {
+                JSONObject object = JSON.parseObject(result);
+                responseResult = ResponseResultUtils.success(object);
+            } else if (result.indexOf("[") == 0) {
+                JSONArray array = JSON.parseArray(result);
+                responseResult = ResponseResultUtils.success(array);
+            } else {
+                responseResult = ResponseResultUtils.success(result);
+            }
         }
        return JSON.toJSONString(responseResult);
+    }
+
+    public static void main(String[] args){
+        String k="{'aa':'eee'}";
+        ResponseResult js =JSON.parseObject(k,ResponseResult.class);
+        ResponseResult kk= new ResponseResult("kkkk");
+        System.out.println(JSON.toJSON(js));
+        System.out.println(JSON.toJSONString(kk));
     }
 }

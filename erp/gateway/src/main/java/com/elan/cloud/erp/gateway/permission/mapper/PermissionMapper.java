@@ -20,5 +20,5 @@ public interface PermissionMapper {
             "        LEFT JOIN sys_permission_role spr on spr.role_id=r.id\n" +
             "        LEFT JOIN sys_permission p on p.id =spr.permission_id\n" +
             "        where u.id=#{userId}")
-    public List<Permission> findByUserId(String userId);
+    public List<Permission> findByUserId( int userId);
 }

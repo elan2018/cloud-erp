@@ -8,32 +8,32 @@ import java.util.Collection;
 
 public interface SecurityManager {
     /**
-     *  添加资源服务
-     * @param resourceService
+     * 装入系统需要保护的权限资源（仅一次）
+     * @param resourceService 权限资源服务
      */
     public void loadRecourceConfig(ResourceService resourceService);
 
+//    /**
+//     * 根据URL获取对应的权限要求
+//     * @param key   对应的URL
+//     *
+//     */
+//    Collection<Resource> getResourceConfigForURL(String key);
+//
     /**
-     * 根据URL获取对应的权限要求
-     * @param key   对应的URL
      *
+     * @return 所有系统所需保护的权限资源
      */
-    public Collection<Resource> getResourceConfigForURL(String key);
+    public Collection<Resource> getResourceAll();
 
     /**
-     * 所有权限
-     * @return
+     * 清除缓存中的用户权限资源
      */
-    public  Collection<Resource> getResourceAll();
-
-    /**
-     * 获取用户权限属性
-     */
-    public   Collection<Resource> getUserResource(String id);
+     public Collection<Resource> clearUserResourceCache(int userId);
 
     /**
      * 判断用户权限是否许可
      * @return true许可，false 不允许
      */
-    public boolean decide(HttpServletRequest request, String id);
+    public boolean decide(HttpServletRequest request, int id);
 }

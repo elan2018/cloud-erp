@@ -16,11 +16,11 @@ public class ResourceURLMatcher implements ResourceMatcher {
     public boolean matcher(Resource resource,String key) {
         if (StringUtils.isNotEmpty(resource.getUrl()) ){
             String url = resource.getUrl();
-            if (isCase==false){
+            if (!isCase){
                 key =key.toLowerCase();
                 url = url.toLowerCase();
             }
-             if (url.equals(key)) return true;
+             if(url.equals(key)) return true;
         }
         return false;
     }

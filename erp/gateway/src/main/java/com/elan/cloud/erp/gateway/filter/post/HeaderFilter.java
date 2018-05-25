@@ -23,7 +23,7 @@ public class HeaderFilter extends ZuulFilter {
     @Override
     public boolean shouldFilter() {
         RequestContext ctx = RequestContext.getCurrentContext();
-        if (ctx.get("isSuccess")!=null && (Boolean)ctx.get("isSuccess")==false) return false;
+        if (ctx.get("isSuccess")!=null && !(Boolean)ctx.get("isSuccess")) return false;
         return true;
     }
 

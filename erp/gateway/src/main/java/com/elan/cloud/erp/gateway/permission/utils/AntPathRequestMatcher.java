@@ -19,14 +19,14 @@ public class AntPathRequestMatcher implements AntResourceMatcher{
         this.method = method;
         this.subpath=subpath;
         this.length = subpath.length();
-        if (isCase==false){
+        if (!isCase){
             this.subpath = this.subpath.toLowerCase();
         }
     }
     public AntPathRequestMatcher(String subpath,boolean isCase){
         this.subpath=subpath;
         this.length = subpath.length();
-        if (isCase==false){
+        if (!isCase){
             this.subpath = this.subpath.toLowerCase();
         }
     }
@@ -59,7 +59,7 @@ public class AntPathRequestMatcher implements AntResourceMatcher{
                     if (StringUtils.isNotEmpty(user.getUrl())) {
                         String s_url = resource.getUrl();
                         String t_url = user.getUrl();
-                        if (this.isCase==false){
+                        if (!this.isCase){
                             s_url = s_url.toLowerCase();
                             t_url = t_url.toLowerCase();
                         }
