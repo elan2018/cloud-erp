@@ -15,11 +15,11 @@ import java.util.Map;
 public class LogFilterConfig {
     private Logger logger = LoggerFactory.getLogger(LogFilterConfig.class);
 
-    @Value("${log-service.isOpen:true}")
+    @Value("${log-tools.isOpen:true}")
     private String isOpen;
 
     //排除不拦截的URL
-    @Value("${log-service.excludes:/css,/js,/lib,/images,*.ico}")
+    @Value("${log-tools.excludes:/css,/js,/lib,/images,*.ico}")
     private String excludes;
 
 

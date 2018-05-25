@@ -43,4 +43,11 @@ public class DemoController {
         return new ResponseResult(String.valueOf(++id));
     }
 
+    @PostMapping("/user/resource/clear")
+    public ResponseResult clearUserResoure(@RequestParam("userId") int userId){
+        Map<String, String> params = new HashMap<>();
+        params.put("userId", "1");
+        return new RestTemplateUtil(restTemplate).post(url + "security/user/resource/clear", params);
+
+    }
 }

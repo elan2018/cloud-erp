@@ -22,7 +22,7 @@ public class LoginService {
 
     public ResponseResult login(String name, String password){
         Map<String,String> params =new HashMap<>();
-        params.put("name",name);
+        params.put("username",name);
         params.put("password",password);
         return new RestTemplateUtil(restTemplate).post(url+"security/login",params);
     }

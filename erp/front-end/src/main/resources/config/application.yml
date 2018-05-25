@@ -1,5 +1,5 @@
 spring:
     application:
-        name: front-end
+        name: dolphin-front-end
     profiles:
         active: dev

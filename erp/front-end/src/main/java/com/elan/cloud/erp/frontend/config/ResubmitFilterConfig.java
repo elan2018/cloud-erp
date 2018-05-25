@@ -15,13 +15,15 @@ import java.util.Map;
 public class ResubmitFilterConfig {
     private Logger logger = LoggerFactory.getLogger(ResubmitFilterConfig.class);
 
-    @Value("${security.csrf.isOpen:true}")
+    @Value("${security.resubmit.isOpen:true}")
     private String isOpen;
 
-    //排除不拦截的URL
-    @Value("${security.csrf.excludes:/css,/js,/lib,/images,*.ico}")
-    private String excludes;
+    @Value("${security.resubmit.test-token:000000000}")
+    private String test_token;
 
+    //排除不拦截的URL
+    @Value("${security.resubmit.excludes:/css,/js,/lib,/images,*.ico}")
+    private String excludes;
 
     @Bean
     public FilterRegistrationBean resubmitFilterRegistrationBean() {
@@ -34,6 +36,7 @@ public class ResubmitFilterConfig {
         Map<String, String> initParameters = new HashMap();
         initParameters.put("excludes", excludes);
         initParameters.put("isOpen", isOpen);
+        initParameters.put("test-token", test_token);
         filterRegistrationBean.setInitParameters(initParameters);
         return filterRegistrationBean;
     }

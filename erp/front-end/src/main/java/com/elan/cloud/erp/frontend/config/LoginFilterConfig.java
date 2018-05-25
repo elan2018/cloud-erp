@@ -20,7 +20,7 @@ public class LoginFilterConfig {
     private String login;
 
     //排除不拦截的URL
-    @Value("${security.login.excludes:/css,/js,/lib,/images,*.ico}")
+    @Value("${security.controller.excludes:/css,/js,/lib,/images,*.ico}")
     private String excludes;
 
     @Bean

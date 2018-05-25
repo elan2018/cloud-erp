@@ -15,6 +15,9 @@ import java.util.Map;
 public class CsrfFilterConfig {
     private Logger logger = LoggerFactory.getLogger(CsrfFilterConfig.class);
 
+    @Value("${security.csrf.test-token:1111-2222-3333-4444-5555}")
+    private String test_token;
+
     @Value("${security.csrf.isOpen:true}")
     private String isOpen;
 
@@ -34,6 +37,7 @@ public class CsrfFilterConfig {
         Map<String, String> initParameters = new HashMap();
         initParameters.put("excludes", excludes);
         initParameters.put("isOpen", isOpen);
+        initParameters.put("test-token",test_token);
         filterRegistrationBean.setInitParameters(initParameters);
         return filterRegistrationBean;
     }

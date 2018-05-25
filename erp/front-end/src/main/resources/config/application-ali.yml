@@ -21,6 +21,7 @@ logging:
     level:
         com.elan.erp.frontend: info
         com.elan.common: info
+    path: classpath:/config/logback-ali.xml
 
 spring:
     redis:
@@ -41,12 +42,12 @@ eureka:
 
 #路由网关
 service:
-    url: http://service-zuul:18767/
+    url: http://tools-zuul:18767/
 
 #前置登录验证
 security:
     login:
-        fail: /login
+        fail: /controller
     excludes: /lib,/css,/js,/images,*.ico
 
 

@@ -16,7 +16,7 @@
     <div id="myChart" style="width:500px;height:400px;">
 
     </div>
-
+<p th:text="${session.csrf_token}"></p>
     <button @click="test">变化图形</button>
     <button @click="init_post()">初始POST请求</button>
     <button @click="add">post请求</button>&nbsp;结果：{{info}}
@@ -86,12 +86,15 @@
                 }
                 $.post({url:'/add',data:_self.add_param,
                     success:function (data,textStatus,request) {
+                        _self.$getHeaderTokenInfo(data,request,_self.add_param);
+                        console.log(textStatus);
                         console.log(data);
                         if(data.code==0) {
-                            _self.$getHeaderTokenInfo(request,_self.add_param);
                             _self.info=data.data;
                             _self.add_param.id=data.data;
+                            _self.info = data.message;
                         }
+
                     }});
             },
             test:function(){

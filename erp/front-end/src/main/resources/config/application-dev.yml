@@ -16,14 +16,12 @@ server:
             server.tomcat.accesslog.suffix: .log # Log file name suffix.
 
 logging:
-    level:
-        com.elan.erp.frontend: debug
-        com.elan.common: debug
+    config: classpath:config/logback-dev.xml
 
 spring:
     redis:
         database: 1
-        host: 192.168.7.150
+        host: localhost
         port: 6379
         pool:
             max-active: 20
@@ -51,11 +49,17 @@ security:
     csrf:
         method: post
         isOpen: true
+        test-token: 1234567890
+        excludes: /login,/test,/lib,/css,/js,/images,*.ico,*.png,*.jpg,*.gif,*.ttf,*.map
+    resubmit:
+        method: post
+        isOpen: true
+        test-token: 999999999
         excludes: /login,/test,/lib,/css,/js,/images,*.ico,*.png,*.jpg,*.gif,*.ttf,*.map
 
 ribbon:
-    ReadTimeout: 60000
-    ConnectTimeout: 60000
+    ReadTimeout: 600000
+    ConnectTimeout: 600000
     MaxAutoRetries: 0
     MaxAutoRetriesNextServer: 1
 
