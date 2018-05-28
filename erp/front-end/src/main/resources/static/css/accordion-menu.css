@@ -19,7 +19,7 @@ a {
     height:100%;
     max-height:500px;
     margin: 0 auto;
-    background: rgba(128,128,128,0.1);
+    background: rgba(128,128,128,0);
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;

@@ -36,7 +36,7 @@ div .row{
 }
 .app .left {
     float: left;
-    background-color: #BBE8F2;
+    background-color: #000000;
     height: 100%;
     width: 130px;
     margin-left: -130px;
@@ -46,18 +46,18 @@ div .row{
     color:#ffffff;
     padding:15px 0 15px 10px;
     height:100px;
-    background-color:rgba(128,128,128,0);
+    background-color:rgba(0,0,0,1);
     border-bottom:0px solid #1e2a43;
 }
 .app .left .logo{
     color:#ffffff;
-    padding:15px 0 15px 20px;
+    padding:5px 0 15px 20px;
     height:60px;
     font-size:18px;
     cursor: pointer;
-    background-color:rgba(128,128,128,0);
+    background-color:rgba(0,0,0,1);
     border-top:0px solid rgba(255,255,255,0.2);
-    border-bottom:1px solid rgba(0,0,0,0.2);
+    border-bottom:0px solid rgba(0,0,0,0.2);
 }
 .app .right {
     background-color: #1b6d85;

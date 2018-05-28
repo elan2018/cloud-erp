@@ -31,7 +31,11 @@
                 <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="帮助"
                       style="padding:0 5px 15px 20px;"></span>
             </div>
-            <div role="logo" class="logo" @click="addTab('home',-1,0)">LO<span style="color:orangered">GO</span></div>
+            <div role="logo" class="logo" @click="addTab('home',-1,0)">
+                <div style="margin: 0px 15px 5px -10px;border-top: 1px solid rgba(255,255,255,0.1);height:5px;">&nbsp;</div>
+                LO<span style="color:orangered">GO</span>
+                <div style="margin: 5px 15px 10px -10px;border-top: 1px solid rgba(255,255,255,0.1);height:5px;">&nbsp;</div>
+            </div>
             <div id="accordionMenu" style="margin:0;padding:0;width:180px;">
                 <ul id="accordion" class="accordion">
                     <li v-for="(item,index) in mainMenu">
@@ -154,22 +158,12 @@
         mounted: function () {
             console.log('mounted...........');
             $.get({url:'/user/menu?userId=1',method:'get',success:function(resp){
-                    console.log(resp.data.data[0]);
-                    for (var i = 0; i < resp.data.data.length; i++) {
-                       app.$data.mainMenu.push(resp.data.data[i]);
+                    console.log(resp.data);
+                    for (var i = 0; i < resp.data.length; i++) {
+                       app.$data.mainMenu.push(resp.data[i]);
                     }
                 }});
-            // axios({
-            //     method: 'get',
-            //     url: '/user/menu?userId=1'
-            // }).then(function (resp) {
-            //     console.log(resp.data.data[0]);
-            //     for (var i = 0; i < resp.data.data.length; i++) {
-            //         app.$data.mainMenu.push(resp.data.data[i]);
-            //     }
-            // }).catch(function (resp) {
-            //     console.log('请求失败：' + resp.status + ',' + resp.statusText);
-            // });
+
         },
         computed: {
             cPaddingHeight: function () {
