@@ -87,6 +87,7 @@
                 $.post({url:'/add',data:_self.add_param,
                     success:function (data,textStatus,request) {
                         _self.$getHeaderTokenInfo(data,request,_self.add_param);
+                        _self.$getHelpInfo(data,parent.mainApp.$data.operationInfo);
                         console.log(textStatus);
                         console.log(data);
                         if(data.code==0) {

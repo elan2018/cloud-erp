@@ -73,6 +73,9 @@ div .row{
 }
 .app .info{
     height:100%;
+    padding:0;
+    background:#eeeeee;
+    border-left:1px solid #eeeeee;
 }
 .app .footer {
     height: 30px;

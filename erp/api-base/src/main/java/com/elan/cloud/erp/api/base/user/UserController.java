@@ -58,7 +58,11 @@ public class UserController {
             mainMenuItem.put("menu", subMenuList);
             mainMenu.add(mainMenuItem);
         }
-        return new ResponseResult(mainMenu);
+        List<String> info = new ArrayList<>();
+        info.add("上次登录时间：2018-05-20 10:30:22");
+        info.add("你共有"+subMenuItem.size()+"个菜单权限！");
+
+        return new ResponseResult(mainMenu,info);
     }
 
 

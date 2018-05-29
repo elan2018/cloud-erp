@@ -17,6 +17,8 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class SecurityController {
@@ -39,11 +41,15 @@ public class SecurityController {
         if (user==null){
             return new ResponseResult(1,"用户或密码不正确！");
         }
-        //存储到缓存中
+
         String token = String.format("%s_%s",GenerationUtil.uuid(),user.getId());
         String key = String.format("%s_%s","token",user.getId());
+        //存储到缓存中
         redisService.set(key,token);
-        return new ResponseResult(encrypUtil.encrypt(token));
+        Map<String,Object> result = new HashMap();
+        result.put("token",encrypUtil.encrypt(token));
+        result.put("user",user);
+        return new ResponseResult(result);
     }
 
     @PostMapping("/user/resource/clear")

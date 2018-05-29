@@ -10,6 +10,6 @@ import org.springframework.stereotype.Component;
 @Component
 public interface SecurityMapper {
 
-    @Select("select id,username,password from sys_user where username=#{username}")
+    @Select("select id,user_name as username,password_hash as password from sys.tb_operator where user_name=#{username}")
     User findByUsername(@Param("username") String username);
 }

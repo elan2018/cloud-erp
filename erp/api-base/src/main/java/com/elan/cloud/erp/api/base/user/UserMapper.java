@@ -12,16 +12,16 @@ import java.util.Map;
 @Component
 public interface UserMapper {
 
-    @Select("SELECT " +
-            "d.name,d.url,'icon0.png' as pic,d.id,d.pid " +
-            "FROM " +
-            "sys_user AS a " +
-            "LEFT JOIN sys_user_role AS b ON a.id = b.user_id " +
-            "LEFT JOIN sys_permission_role as C ON C .role_id = b.role_id " +
-            "LEFT JOIN sys_permission as d ON C .permission_id = d.id " +
-            "WHERE " +
-            "d.req_type = 'menu' " +
-            "AND a.id = #{userId} " +
-            "order by d.id")
+    @Select("SELECT \n" +
+            "            d.name,d.value as url,d.img_url as pic,d.id,d.parent_id as pid\n" +
+            "            FROM \n" +
+            "            sys.tb_operator AS a \n" +
+            "            LEFT JOIN sys.tb_r_operator_role AS b ON a.id = b.operator_id\n" +
+            "            LEFT JOIN sys.tb_r_permission_role as C ON C .role_id = b.role_id \n" +
+            "            LEFT JOIN sys.tb_permission as d ON C .permission_id = d.id \n" +
+            "            WHERE \n" +
+            "            d.type = 'menu' \n" +
+            "            AND a.id = #{userId}\n" +
+            "            order by d.id")
     List<Map<String,Object>> getUserMenu(@Param("userId") int userId);
 }

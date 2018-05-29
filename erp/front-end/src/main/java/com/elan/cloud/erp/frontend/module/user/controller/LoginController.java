@@ -1,5 +1,7 @@
 package com.elan.cloud.erp.frontend.module.user.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.elan.cloud.erp.frontend.module.user.service.LoginService;
 import com.elan.common.response.ResponseResult;
 import org.slf4j.Logger;
@@ -30,9 +32,13 @@ public class LoginController {
                                             @RequestParam("password")String password){
         ResponseResult responseResult = loginService.login(name,password);
         if (responseResult.getCode()==0) {
-            logger.debug("返回结果："+responseResult.getData());
 
-            request.getSession().setAttribute("x-access-token", responseResult.getData().toString());
+            Object obj = responseResult.getData();
+            logger.debug("返回结果："+JSON.toJSONString(obj));
+            JSONObject result = JSON.parseObject(JSON.toJSONString(obj));
+            request.getSession().setAttribute("x-access-token", result.getString("token"));
+            model.addAttribute("username",result.getJSONObject("user").getString("username"));
+            model.addAttribute("userId",result.getJSONObject("user").getString("id"));
             return "main";
         }
         model.addAttribute("error",responseResult.getMessage());

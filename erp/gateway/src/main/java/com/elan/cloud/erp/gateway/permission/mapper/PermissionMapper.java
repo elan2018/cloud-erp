@@ -10,15 +10,19 @@ import java.util.List;
 @Mapper
 @Component
 public interface PermissionMapper {
-    @Select("SELECT * from sys_permission ")
+    @Select("SELECT * from sys.tb_permission ")
     public List<Permission> findAll();
 
-    @Select("select p.*\n" +
-            "        from sys_user u\n" +
-            "        LEFT JOIN sys_user_role sru on u.id= sru.user_id\n" +
-            "        LEFT JOIN sys_role r on sru.role_id=r.id\n" +
-            "        LEFT JOIN sys_permission_role spr on spr.role_id=r.id\n" +
-            "        LEFT JOIN sys_permission p on p.id =spr.permission_id\n" +
-            "        where u.id=#{userId}")
+    @Select("SELECT \n" +
+            "            d.name,d.value as url,d.id,d.parent_id \n" +
+            "            FROM \n" +
+            "            sys.tb_operator AS a \n" +
+            "            LEFT JOIN sys.tb_r_operator_role AS b ON a.id = b.operator_id\n" +
+            "            LEFT JOIN sys.tb_r_permission_role as C ON C .role_id = b.role_id \n" +
+            "            LEFT JOIN sys.tb_permission as d ON C .permission_id = d.id \n" +
+            "            WHERE 1=1\n" +
+            //"            d.type = 'menu' \n" +
+            "            AND a.id = #{userId}\n" +
+            "            order by d.id")
     public List<Permission> findByUserId( int userId);
 }
