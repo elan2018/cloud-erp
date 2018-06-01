@@ -4,7 +4,6 @@
     <meta charset="UTF-8"/>
     <script type="text/javascript" src="/js/commom_css.js"></script>
     <script type="text/javascript" src="/js/commom_js.js"></script>
-    <script src="/lib/dolphin/http-template/js/http-template.js"></script>
     <title>main</title>
 
 </head>
@@ -168,22 +167,26 @@
         },
         created: function(){
 
-
         },
         mounted: function () {
             console.log('mounted...........');
             this.ready();
             this.handleResize();
-            _self = this;
-            $.get({
-                url: '/user/menu?userId='+/*[[${userId}]]*/, method: 'get', success: function (resp) {
-                    console.log(resp);
-                    for (var i = 0; i < resp.data.length; i++) {
-                        _self.mainMenu.push(resp.data[i]);
-                    }
-                    _self.$getHelpInfo(resp, _self.$data.operationInfo);
+            let _self = this;
+            let param = {};
+            param.userId = /*[[${userId}]]*/;
+            let maskLoad = Dolphin_Loading.create();
+            maskLoad.loading();
+            this.$http('get','/user/menu',param,this.operationInfo,function(resp){
+                for (let i = 0; i < resp.data.length; i++) {
+                    _self.mainMenu.push(resp.data[i]);
                 }
-            });
+                maskLoad.loading_close('body');
+
+            },function () {
+                //error
+
+            },false);
         },
         computed: {
             cPaddingHeight: function () {
@@ -217,8 +220,7 @@
 
             },
             loadPage: function (id, url) {
-                var tag = $('#' + id);
-                console.log(url);
+                let tag = $('#' + id);
                 tag.load(url, function () {
                     tag.fadeIn(100);
                 });

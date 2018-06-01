@@ -38,7 +38,7 @@ DOLPHIN_HTTP_TEMPLATE.install=function(Vue,options){
    // };
     function getHelpInfo(data,infos){
         checkData(data);
-        if(data.info==undefined){
+        if(data.info===undefined){
             return ""
         }
         if (Object.prototype.toString.call(infos) === '[object Array]') {
@@ -63,7 +63,7 @@ DOLPHIN_HTTP_TEMPLATE.install=function(Vue,options){
     // };
     function initPost(path,csrf_token,req_url){
         let path_key =path.replace(new RegExp('/',"gm"),'_');
-        if(init_param[path_key]==undefined) {
+        if(init_param[path_key]===undefined) {
             let param = {};
             param.path = path;
             param.csrf_token = csrf_token;
@@ -105,7 +105,7 @@ DOLPHIN_HTTP_TEMPLATE.install=function(Vue,options){
         if(isSync){
             isSync = sync;
         }
-        if(method=='get') {
+        if(method==='get') {
             $.get({
                 url: url, async: isSync, data: param,
                 success: function (data, textStatus, request) {
@@ -120,7 +120,7 @@ DOLPHIN_HTTP_TEMPLATE.install=function(Vue,options){
                     if(isErrorCallback) errorCallback(textStatus);
                 }
             });
-        }else if(method=='post'){
+        }else if(method==='post'){
             initPost(url,param.csrf_token);
             let path_key =url.replace(new RegExp('/',"gm"),'_');
             $.post({
