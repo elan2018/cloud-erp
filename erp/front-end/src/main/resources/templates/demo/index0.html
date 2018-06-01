@@ -95,7 +95,7 @@
                 }
                 let maskLoad = Dolphin_Loading.create();
                 maskLoad.loading('test',3);
-                this.$http('post','/add',this.add_param,this.info,function(data){
+                this.$http('post','/add1',this.add_param,this.info,function(data){
                     //success
                     console.log(data);
                     maskLoad.loading_close('test');

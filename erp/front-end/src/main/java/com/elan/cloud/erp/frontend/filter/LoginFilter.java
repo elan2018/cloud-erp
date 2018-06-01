@@ -84,8 +84,10 @@ public class LoginFilter implements Filter {
         }
         Object csrf_token =req.getSession().getAttribute("csrf_token");
         if(csrf_token==null) {
-            req.getSession().setAttribute("csrf_token", GenerationUtil.uuid());
+            csrf_token = GenerationUtil.uuid();
+            req.getSession().setAttribute("csrf_token", csrf_token);
         }
+        req.setAttribute("csrf_token",csrf_token);//添加到页面请求中
         filterChain.doFilter(req,resp);
     }
 

@@ -6,12 +6,13 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableDiscoveryClient
 @ComponentScan(basePackages = {"com.elan.common.controller", "com.elan.cloud.erp"}
-        //	,excludeFilters={@ComponentScan.Filter(type=  FilterType.ASSIGNABLE_TYPE,value=com.elan.controller.RouterController.class)}
+        	,excludeFilters={@ComponentScan.Filter(type=FilterType.ASSIGNABLE_TYPE,value={com.elan.common.controller.exception.ExceptionHandle.class})}
 )
 public class FrontEndApplication {
 
