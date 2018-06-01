@@ -33,9 +33,6 @@ DOLPHIN_HTTP_TEMPLATE.install=function(Vue,options){
     }
 
     //获取返回的相关信息
-   // Vue.prototype.$getHelpInfo=(data,infos)=>{
-   //     getHelpInfo(data,infos);
-   // };
     function getHelpInfo(data,infos){
         checkData(data);
         if(data.info===undefined){
@@ -50,17 +47,11 @@ DOLPHIN_HTTP_TEMPLATE.install=function(Vue,options){
             console.warn('参数不是一个有效的数组！')
         }
     }
-    //获取返回的头部信息
-    //Vue.prototype.$getHeaderTokenInfo=(data,request,param)=>{
-    //    return getHeaderTokenInfo(data,request, param);
-    //};
 
+    //保存每个初始post URL的header值
     let init_param=[];
+
     //初始post请求，向服务器申请post请求
-    // Vue.prototype.$postInit=(path,csrf_token,req_url)=>{
-    //    initPost(path,csrf_token,req_url);
-    // return param;
-    // };
     function initPost(path,csrf_token,req_url){
         let path_key =path.replace(new RegExp('/',"gm"),'_');
         if(init_param[path_key]===undefined) {
@@ -77,9 +68,8 @@ DOLPHIN_HTTP_TEMPLATE.install=function(Vue,options){
                     init_param[path_key] = getHeaderTokenInfo(data, request);
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.error(XMLHttpRequest.responseJSON);
                     console.error(XMLHttpRequest.status);
-                    console.error(XMLHttpRequest.readyState);
-                    console.error(textStatus);
                 }
             });
         }
@@ -109,15 +99,13 @@ DOLPHIN_HTTP_TEMPLATE.install=function(Vue,options){
             $.get({
                 url: url, async: isSync, data: param,
                 success: function (data, textStatus, request) {
-                    //getHeaderTokenInfo(data, request);
                     if(isInfo) getHelpInfo(data,info);
                     if(isSuccessCallback) successCallback(data);
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.error(XMLHttpRequest.responseJSON);
                     console.error(XMLHttpRequest.status);
-                    console.error(XMLHttpRequest.readyState);
-                    console.error(textStatus);
-                    if(isErrorCallback) errorCallback(textStatus);
+                    if(isErrorCallback) errorCallback(XMLHttpRequest.responseJSON);
                 }
             });
         }else if(method==='post'){
@@ -132,10 +120,9 @@ DOLPHIN_HTTP_TEMPLATE.install=function(Vue,options){
                     if(isSuccessCallback) successCallback(data);
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.error(XMLHttpRequest.responseJSON);
                     console.error(XMLHttpRequest.status);
-                    console.error(XMLHttpRequest.readyState);
-                    console.error(textStatus);
-                    if(isErrorCallback) errorCallback(textStatus);
+                    if(isErrorCallback) errorCallback(XMLHttpRequest.responseJSON);
                 }
             });
         }
