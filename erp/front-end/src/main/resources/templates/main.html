@@ -174,7 +174,7 @@
             this.handleResize();
             let _self = this;
             let param = {};
-            param.userId = /*[[${userId}]]*/;
+           // param.userId = /*[[${userId}]]*/;
             let maskLoad = Dolphin_Loading.create();
             maskLoad.loading();
             this.$http('get','/user/menu',param,this.operationInfo,function(resp){
@@ -185,7 +185,7 @@
 
             },function () {
                 //error
-
+                maskLoad.loading_close('body');
             },false);
         },
         computed: {
