@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>vue导航菜单</title>
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/dolphin/mask-load/css/mask-load.css" />
     <style>
         .abc{
             border:2px solid green;
@@ -20,11 +21,14 @@
     <button @click="test">变化图形</button>
     <button @click="init_post()">初始POST请求</button>
     <button @click="add">post请求</button>&nbsp;结果：{{info}}
+    <div id="test" style="width:200px;height:200px;border: 1px solid #ddd;"></div>
 </div>
 
 <script src="/lib/jquery-3.3.1.min.js"></script>
-<script src="/lib/dolphin/http-template/js/http-template.js"></script>
 <script src="/lib/vue/vue.js"></script>
+<script src="/lib/dolphin/http-template/js/http-template.js"></script>
+<script src="/lib/dolphin/mask-load/js/mask-load.js"></script>
+
 
 <!-- ECharts单文件引入 -->
 <script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
@@ -77,26 +81,29 @@
         },
         methods:{
             init_post:function(){
-                this.add_param =this.$postInit('/add',this.csrfToken);
+              //  this.add_param =this.$postInit('/add',this.csrfToken);
             },
             add:function(){
-                let _self = this;
-                if(_self.add_param.id==undefined){
-                    _self.add_param.id=1;
-                }
-                $.post({url:'/add',data:_self.add_param,
-                    success:function (data,textStatus,request) {
-                        _self.$getHeaderTokenInfo(data,request,_self.add_param);
-                        _self.$getHelpInfo(data,parent.mainApp.$data.operationInfo);
-                        console.log(textStatus);
-                        console.log(data);
-                        if(data.code==0) {
-                            _self.info=data.data;
-                            _self.add_param.id=data.data;
-                            _self.info = data.message;
-                        }
 
-                    }});
+                if(this.add_param.id==undefined){
+                    this.add_param.id=1;
+                }else{
+                    this.add_param.id ++
+                }
+                if(this.add_param.csrf_token==undefined){
+                    this.add_param.csrf_token=this.csrfToken;
+                }
+                let maskLoad = Dolphin_Loading.create();
+                maskLoad.loading('test',3);
+                this.$http('post','/add',this.add_param,this.info,function(data){
+                    //success
+                    console.log(data);
+                    maskLoad.loading_close('test');
+                },function () {
+                    //error
+
+                },false);
+
             },
             test:function(){
                 let k = this.testChart.getSeries();
