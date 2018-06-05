@@ -20,5 +20,6 @@ zuul:
             path: ${permit.service}/**
             serviceId: erp-gateway-zuul
 
-
-
+server:
+    tomcat:
+        uri-encoding: utf-8

@@ -30,9 +30,9 @@ logging:
 
 spring:
     datasource:
-        url: jdbc:postgresql://localhost:5432/base-test?useUnicode=true&characterEncoding=utf-8
-        username: postgres
-        password: 111111
+        url: jdbc:postgresql://192.168.7.150:5432/erp-dev?useUnicode=true&characterEncoding=utf-8
+        username: devuser
+        password: engine
         driver-class-name: org.postgresql.Driver
     redis:
         database: 2

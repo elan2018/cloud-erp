@@ -22,6 +22,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 
@@ -83,14 +84,17 @@ public class AuthRoleFilter extends ZuulFilter {
     public Object run() {
         log.debug("gateway filter----------auth-------");
         RequestContext ctx = RequestContext.getCurrentContext();
+
         HttpServletRequest request = ctx.getRequest();
+        Map<String,List<String>> k = ctx.getRequestQueryParams();
         if (log.isDebugEnabled()) {
             log.debug("request's parameter-----------------------------");
-            Enumeration<String> params = request.getParameterNames();
-            while (params.hasMoreElements()) {
-                String name = params.nextElement();
-                log.debug(String.format("%s=%s", name, request.getParameter(name)));
-            }
+                Enumeration<String> params = request.getParameterNames();
+                while (params.hasMoreElements()) {
+                    String name = params.nextElement();
+                    log.debug(String.format("%s=%s", name, request.getParameter(name)));
+                }
+
             log.debug("zuul's header-----------------------------");
             Map<String, String> header = ctx.getZuulRequestHeaders();
             Iterator<String> iter = header.keySet().iterator();

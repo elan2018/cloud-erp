@@ -54,14 +54,8 @@ public class LoginController {
     @ResponseBody
     public Object getUserMenu(@RequestParam("userId")String userId){
 
-        ResponseResult reslut=  loginService.getMenu(userId);
+        ResponseResult reslut= loginService.getMenu(userId);
         return reslut;
-    }
-
-    @GetMapping("/test")
-    @ResponseBody
-    public String test(){
-        return "test";
     }
 
 }

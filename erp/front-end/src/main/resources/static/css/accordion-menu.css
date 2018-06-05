@@ -30,9 +30,9 @@ a {
     cursor: pointer;
     display: block;
     padding: 15px 15px 15px 15px;
-    color: #7b8190;
+    color: #bbbbbb;
     font-size: 14px;
-    border-bottom: 1px solid #1e2a43;
+    border-bottom: 1px solid #ffffff1a;
     border-left:1px solid transparent;
     position: relative;
     -webkit-transition: all 0.4s ease;
@@ -40,11 +40,11 @@ a {
     transition: all 0.4s ease;
 }
 .accordion .link img{
-    color: #7b8190;
+    color: #bbbbbb;
 }
 .accordion div.open{
-    color: #ffffff;
-    background-color: rgba(128,128,128,0.2);
+    color: #bbbbbb;
+    /*background-color: rgba(128,128,128,0.2);*/
     border-left:3px solid #ff5a00;
 }
 .accordion .link:hover {
@@ -75,18 +75,19 @@ a {
  -----------------------------*/
 .submenu {
     display: none;
-    background: #0c1c41;
-    font-size: 14px;
+    background: #171819;
+    font-size: 12px;
 }
 
 .submenu li {
     border-bottom: 1px solid #061027;
+    padding-left:10px;
 }
 
 .submenu a {
     display: block;
     text-decoration: none;
-    color: #d9d9d9;
+    color: #d0cfcf;
     padding: 12px;
     padding-left: 42px;
     -webkit-transition: all 0.25s ease;

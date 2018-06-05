@@ -35,7 +35,7 @@
                 <div style="margin: 0px 15px 5px -10px;border-top: 1px solid rgba(255,255,255,0.1);height:5px;">&nbsp;
                 </div>
                 LO<span style="color:orangered">GO</span>
-                <div style="margin: 5px 15px 10px -10px;border-top: 1px solid rgba(255,255,255,0.1);height:5px;">
+                <div style="margin: 5px 15px 10px -10px;border-top: 0 solid rgba(255,255,255,0.1);height:5px;">
                     &nbsp;
                 </div>
             </div>
@@ -149,7 +149,7 @@
                 contentRightBackColor: '#ffffff',
                 contentRightWorkBackColor: '#ffffff',
                 contentRightInfoBackColor: '#eeeeee',
-                contentLeftBackColor: '#000d2a',
+                contentLeftBackColor: '#000000',
                 contentLeftWidth: 180,
                 infoHeight: 500
             },
@@ -174,7 +174,7 @@
             this.handleResize();
             let _self = this;
             let param = {};
-           // param.userId = /*[[${userId}]]*/;
+            param.userId = /*[[${userId}]]*/;
             let maskLoad = Dolphin_Loading.create();
             maskLoad.loading();
             this.$http('get','/user/menu',param,this.operationInfo,function(resp){

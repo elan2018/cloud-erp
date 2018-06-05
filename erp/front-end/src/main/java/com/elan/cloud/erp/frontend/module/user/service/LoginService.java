@@ -28,14 +28,10 @@ public class LoginService {
     }
 
     public ResponseResult getMenu(@RequestParam(value = "name") String name){
-        Map<String,String> params =new HashMap<>();
+        Map<String,Object> params =new HashMap<>();
         params.put("userId",name);
         return new RestTemplateUtil(restTemplate).get(url+"base/menu",params);
     }
 
-    public ResponseResult test(String name){
-        Map<String,String> params =new HashMap<>();
-        params.put("name",name);
-        return new RestTemplateUtil(restTemplate).get(url+"user/do",params);
-    }
+
 }

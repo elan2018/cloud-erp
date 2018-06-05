@@ -3,3 +3,6 @@ spring:
         name: dolphin-front-end
     profiles:
         active: dev
+server:
+    tomcat:
+        uri-encoding: utf-8
