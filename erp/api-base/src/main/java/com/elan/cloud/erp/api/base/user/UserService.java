@@ -12,7 +12,7 @@ public class UserService {
     @Autowired
     UserMapper userMapper;
 
-    public List<Map<String,Object>> getUserMenu(int userId){
-        return userMapper.getUserMenu(userId);
+    public List<Map<String,Object>> getUserMenu(String userId){
+        return userMapper.getUserMenu(Integer.valueOf(userId));
     }
 }

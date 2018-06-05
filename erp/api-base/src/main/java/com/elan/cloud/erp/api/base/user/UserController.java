@@ -2,10 +2,7 @@ package com.elan.cloud.erp.api.base.user;
 
 import com.elan.common.response.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +17,7 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/menu")
-    public Object getUserMenu(@RequestParam("userId")int userId) {
+    public Object getUserMenu(@RequestParam("userId")String userId) {
         List<Map<String,Object>> menuList = userService.getUserMenu(userId);
         List<Map<String,Object>> mainMenu = new ArrayList<>();
         Map<String,Object> mainMenuItem =new HashMap();

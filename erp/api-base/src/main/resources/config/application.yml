@@ -4,4 +4,6 @@ spring:
     profiles:
         active: dev
 
-
+server:
+    tomcat:
+        uri-encoding: utf-8

@@ -29,7 +29,16 @@ logging:
 
 spring:
     datasource:
-        url: jdbc:postgresql://localhost:5432/base-test?useUnicode=true&characterEncoding=utf-8
-        username: postgres
-        password: 111111
+        url: jdbc:postgresql://192.168.7.150:5432/erp-dev?useUnicode=true&characterEncoding=utf-8
+        username: devuser
+        password: engine
         driver-class-name: org.postgresql.Driver
+    http:
+        multipart:
+            enabled: true   # 启用http上传处理
+            max-file-size: 20MB # 设置单个文件的最大长度
+            max-request-size: 20MB # 设置最大的请求文件的大小
+            file-size-threshold: 1MB  # 当上传文件达到1MB的时候进行磁盘写入
+            location: /  # 上传的临时目录
+
+upload.path: e:/upload

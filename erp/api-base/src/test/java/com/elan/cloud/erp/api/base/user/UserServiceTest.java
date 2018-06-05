@@ -19,7 +19,7 @@ public class UserServiceTest {
 
     @Test
     public void userLogin(){
-        List<Map<String,Object>> menu =userService.getUserMenu(1);
+        List<Map<String,Object>> menu =userService.getUserMenu("1");
         Assert.assertNotNull(menu);
     }
 }
